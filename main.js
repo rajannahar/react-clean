@@ -94,22 +94,30 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
       localStorage.setItem('data', JSON.stringify(state));
     }, [state]);
 
-    return html`
-      <${Context.Provider} value=${dispatch}>
-        <h1>Todo app</h1>
-        <button onClick=${e => dispatch({ type: 'add' })}>New Todo</button>
+    if (state.length > 0) {
+      return html`
+        <${Context.Provider} value=${dispatch}>
+          <h1>Todo app</h1>
+          <button onClick=${e => dispatch({ type: 'add' })}>New Todo</button>
 
-        <${TodoList} items=${state} />
-      </${Context.Provider}>
-    `
+          <${TodoList} items=${state} />
+        </${Context.Provider}>
+      `
+    } else {
+      return null;
+    }
   }
 
   function TodoList( { items }) {
-    return html`
-      <ul>
-        ${items.map(item => html`<${TodoItem} key=${item.id} item=${item} />`)}
-      </ul>
-    `
+    if (items) {
+      return html`
+        <ul>
+          ${items.map(item => html`<${TodoItem} key=${item.id} item=${item} />`)}
+        </ul>
+      `
+    } else {
+      return null
+    }
   }
 
   function TodoItem( { item }) {
