@@ -1,0 +1,14 @@
+{
+  "name": "react-clean",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx servor / index.html 8080 5000"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "servor": "^2.0.3"
+  }
+}
