@@ -78,6 +78,7 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
     React.useEffect(() => {
       if (!didRun.current) {
         const raw = localStorage.getItem('data');
+        console.log('raw: ', raw, didRun.current)
         dispatch({ type: 'reset', payload: JSON.parse(raw)});
         didRun.current = true;
       }
@@ -90,9 +91,11 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
     // }, []);
     // alternative to above - empty array will only run this effect once!
 
+
     React.useEffect(() => {
       localStorage.setItem('data', JSON.stringify(state));
-    }, [state]);
+      console.log('state: ', state, localStorage.getItem('data'))
+    });
 
     return html`
       <${Context.Provider} value=${dispatch}>
@@ -105,15 +108,15 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
   }
 
   function TodoList( { items }) {
+    console.log('items: ', items)
     if (items) {
       return html`
         <ul>
           ${items.map(item => html`<${TodoItem} key=${item.id} item=${item} />`)}
         </ul>
       `
-    } else {
-      return null
     }
+
   }
 
   function TodoItem( { item }) {
