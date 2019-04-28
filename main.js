@@ -72,15 +72,23 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
     const [state, dispatch] = React.useReducer(appReducer, []);
     //useReducer - help manage large, complex data
 
-    const didRun = React.useRef(false);
-    //useRef
+    // const didRun = React.useRef(false);
+    // React.useEffect(() => {
+    //   if (!didRun.current) {
+    //     const raw = localStorage.getItem('data');
+    //     raw !== null && dispatch({ type: 'reset', payload: JSON.parse(raw)});
+    //     didRun.current = true;
+    //   }
+    // });
+    //useRef implementation instead of useState
+
+    const [loading, setLoading] = React.useState(true);
+    //useState = loading is true on inital load
 
     React.useEffect(() => {
-      if (!didRun.current) {
-        const raw = localStorage.getItem('data');
-        raw !== null && dispatch({ type: 'reset', payload: JSON.parse(raw)});
-        didRun.current = true;
-      }
+      const raw = localStorage.getItem('data');
+      loading && raw !== null && dispatch({ type: 'reset', payload: JSON.parse(raw)});
+      setLoading(false)
     });
     //useEffect - manage side effects and save to local storage
 
