@@ -95,7 +95,7 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
     React.useEffect(() => {
       localStorage.setItem('data', JSON.stringify(state));
       console.log('state: ', state, localStorage.getItem('data'))
-    });
+    }, []);
 
     return html`
       <${Context.Provider} value=${dispatch}>
@@ -114,6 +114,10 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
         <ul>
           ${items.map(item => html`<${TodoItem} key=${item.id} item=${item} />`)}
         </ul>
+      `
+    } else {
+      return html`
+        <p>Loading...</p>
       `
     }
 
