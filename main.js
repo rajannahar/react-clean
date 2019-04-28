@@ -3,7 +3,7 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
   import htm from 'https://unpkg.com/htm?module'
   const html = htm.bind(React.createElement)
 
-  function appReducer(state, action) {
+  function appReducer(state=[], action) {
     switch (action.type) {
       case 'reset': {
         return action.payload;
@@ -78,8 +78,7 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
     React.useEffect(() => {
       if (!didRun.current) {
         const raw = localStorage.getItem('data');
-        console.log('raw: ', raw, didRun.current)
-        dispatch({ type: 'reset', payload: JSON.parse(raw)});
+        raw && dispatch({ type: 'reset', payload: JSON.parse(raw)});
         didRun.current = true;
       }
     });
@@ -94,7 +93,6 @@ import { React, ReactDOM } from 'https://unpkg.com/es-react@16.8.30';
 
     React.useEffect(() => {
       localStorage.setItem('data', JSON.stringify(state));
-      console.log('state: ', state, localStorage.getItem('data'))
     }, []);
 
     return html`
